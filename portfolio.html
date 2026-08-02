@@ -1,0 +1,677 @@
+<title>Cinzz Studio｜Cinzia 剪輯作品集</title>
+<style>
+/* 字體:系統原生(Apple 裝置上即為 SF Pro / 蘋方),待使用者選定再嵌入 */
+</style>
+<style>
+/* ---------- tokens : bright iOS glass ---------- */
+:root{
+  color-scheme:light;
+  --bg:#F5F6F8;
+  --ink:#1D1D1F;
+  --ink-2:#6E6E73;
+  --glass:rgba(255,255,255,.6);
+  --glass-strong:rgba(255,255,255,.8);
+  --glass-border:rgba(255,255,255,.72);
+  --glass-shadow:0 24px 48px -28px rgba(50,55,70,.22);
+  --accent:#E08B57;
+  --accent-ink:#FFFFFF;
+  --accent-deep:#C0713F;
+  --matcha:#B6D2C1;
+  --chip:rgba(182,210,193,.22);
+  --orb-a:#CFE3D8;
+  --orb-b:#F7CDB0;
+  --orb-c:#E9ECEF;
+  --orb-d:#DCE9E2;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono",Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro TC","PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+}
+/* 明亮毛玻璃為固定視覺——不隨系統或檢視者主題切換 */
+:root[data-theme="dark"],:root[data-theme="light"]{
+  --bg:#F5F6F8;--ink:#1D1D1F;--ink-2:#6E6E73;
+  --glass:rgba(255,255,255,.6);--glass-strong:rgba(255,255,255,.8);
+  --glass-border:rgba(255,255,255,.72);--glass-shadow:0 24px 48px -28px rgba(50,55,70,.22);
+  --accent:#E08B57;--accent-ink:#FFFFFF;--accent-deep:#C0713F;
+  --matcha:#B6D2C1;--chip:rgba(182,210,193,.22);
+  --orb-a:#CFE3D8;--orb-b:#F7CDB0;--orb-c:#E9ECEF;--orb-d:#DCE9E2;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);line-height:1.75;font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+
+/* ---------- ambient orbs ---------- */
+.orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;filter:blur(70px);opacity:.9}
+.orb{position:absolute;border-radius:50%}
+.o1{width:46vw;height:46vw;background:var(--orb-a);top:-12vw;left:-8vw}
+.o2{width:38vw;height:38vw;background:var(--orb-b);top:8vw;right:-10vw}
+.o3{width:34vw;height:34vw;background:var(--orb-c);top:60%;left:-10vw}
+.o4{width:40vw;height:40vw;background:var(--orb-d);bottom:-14vw;right:-6vw}
+
+.wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+
+/* ---------- glass primitives ---------- */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(28px) saturate(1.7);
+  -webkit-backdrop-filter:blur(28px) saturate(1.7);
+  border:1px solid var(--glass-border);
+  border-radius:22px;
+  box-shadow:var(--glass-shadow);
+}
+
+/* ---------- timecode eyebrow ---------- */
+.tc{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:13px;letter-spacing:.12em;
+  color:var(--accent-deep);text-transform:uppercase;
+}
+.tc::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--glass-border),transparent)}
+.tc b{font-weight:400;color:var(--ink-2)}
+
+section.wrap{padding:64px 24px 8px}
+h2{
+  font-size:clamp(26px,4vw,34px);font-weight:800;letter-spacing:.01em;
+  margin:14px 0 6px;text-wrap:balance;
+}
+.lede{color:var(--ink-2);margin:0 0 24px;text-wrap:pretty}
+
+/* ---------- hero ---------- */
+header.wrap{padding:92px 24px 0}
+.name{font-size:clamp(30px,4vw,38px);font-weight:800;margin:0;letter-spacing:.02em}
+.role-en{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent-deep);margin:6px 0 40px;
+}
+h1{
+  font-size:clamp(28px,4.6vw,46px);font-weight:800;line-height:1.4;
+  letter-spacing:.01em;margin:0 0 18px;text-wrap:balance;
+}
+h1 .hl{color:var(--accent-deep)}
+.hero-sub{color:var(--ink-2);margin:0 0 28px;font-size:16.5px;text-wrap:pretty}
+@media (min-width:640px){
+  .hero-sub{white-space:nowrap;font-size:clamp(11px,1.78vw,16.5px)}
+}
+@media (max-width:639px){.lb{display:none}}
+
+.hero-terms{
+  display:inline-flex;align-items:center;
+  padding:9px 20px;border-radius:999px;margin:0 0 36px;
+  background:var(--chip);border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  font-size:13.5px;font-weight:700;color:var(--ink);
+}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px}
+.btn{
+  display:inline-block;padding:13px 30px;border-radius:999px;
+  font-weight:700;text-decoration:none;font-size:15px;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn-solid{
+  background:var(--accent);color:var(--accent-ink);
+  box-shadow:0 10px 24px -10px var(--accent);
+}
+.btn-mail{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-mail svg{width:21px;height:21px;flex-shrink:0}
+.btn-ghost{
+  color:var(--ink);background:var(--chip);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+
+/* ---------- stats : four rounded glass tiles ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  margin-top:0;padding-bottom:28px;
+  background:none;border:0;box-shadow:none;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.stat{padding:6px 0}
+.stat b{display:block;font-size:23px;font-weight:800;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--ink-2);white-space:nowrap}
+@media (max-width:767px){
+  .stats{gap:8px;padding-bottom:16px}
+  .stat{text-align:center}
+  .stat b{font-size:17px}
+  .stat span{font-size:11px}
+}
+@media (max-width:479px){
+  .stats{gap:6px;padding-bottom:12px}
+  .stat{padding:4px 0;text-align:center}
+  .stat b{font-size:16px;margin-bottom:2px}
+  .stat span{font-size:10.5px;letter-spacing:.02em}
+}
+
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;margin-bottom:24px}
+@media (min-width:1024px){.grid-2{grid-template-columns:repeat(2,1fr)}}
+.card{
+  overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.card:hover{transform:translateY(-5px);box-shadow:0 30px 56px -30px rgba(40,50,90,.4)}
+.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.thumb{
+  aspect-ratio:16/9;background-size:cover;background-position:center;position:relative;
+  border-radius:14px;margin:8px 8px 0;
+}
+.thumb::after{
+  content:"▶";position:absolute;inset:auto 10px 10px auto;
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.35);color:#fff;font-size:12px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;
+}
+.views{
+  position:absolute;top:8px;left:8px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:999px;
+  background:rgba(20,20,26,.55);color:#fff;
+  font-size:11.5px;font-weight:700;letter-spacing:.02em;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.28);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.views::before{content:"▶";font-size:8px;color:#FFD066}
+.views.likes::before{content:"♥";font-size:10px;color:#FF8FA3}
+.views.second{top:42px}
+.card-body{padding:14px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.card-tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  padding:4px 11px;border-radius:999px;background:var(--chip);
+  border:1px solid var(--glass-border);color:var(--ink-2);
+}
+.eyerow{
+  position:absolute;left:9px;bottom:9px;
+  display:flex;gap:12px;align-items:center;
+}
+.eyeview{
+  display:inline-flex;align-items:center;gap:6px;
+  color:#fff;font-weight:800;font-size:15px;
+  padding:5px 13px;border-radius:999px;
+  background:rgba(12,12,16,.68);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.eyeview svg{
+  width:19px;height:19px;stroke:#fff;fill:none;
+  stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.85));
+}
+.card h3{margin:0;font-size:15.5px;line-height:1.55;font-weight:700;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+
+.more-link{margin:0;font-size:14.5px}
+.more-link a{color:var(--accent-deep);font-weight:700;text-decoration:none}
+.more-link a:hover{text-decoration:underline}
+
+/* vertical 9:16 shorts cards */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:18px;margin-bottom:24px}
+.vthumb{
+  aspect-ratio:9/16;background-size:cover;background-position:center top;position:relative;
+  border-radius:14px;margin:7px 7px 0;
+}
+.vthumb::after{
+  content:"▶";position:absolute;inset:auto 8px 8px auto;
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.35);color:#fff;font-size:10px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:center;
+}
+.vcard .card-body{padding:11px 13px 14px;gap:6px}
+.vcard .card-tag{font-size:10px;padding:3px 9px}
+.vcard h3{font-size:13px;line-height:1.5}
+.shorts-note{margin:0;font-size:13.5px;color:var(--ink-2)}
+
+/* ---------- services ---------- */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px}
+.svc-item{
+  background:var(--glass);border:1px solid var(--glass-border);
+  border-radius:18px;padding:28px 24px;
+  box-shadow:var(--glass-shadow);
+  backdrop-filter:blur(28px) saturate(1.7);
+  -webkit-backdrop-filter:blur(28px) saturate(1.7);
+}
+.svc-item .sic{width:34px;height:34px;margin-bottom:18px;display:block}
+.svc-item p{margin:0;font-size:15px;font-weight:600;line-height:1.75;color:var(--ink)}
+.svc-item p em{font-style:normal;font-weight:700}
+
+/* ---------- flow ---------- */
+.tflow{
+  display:flex;position:relative;margin:14px 0 24px;
+}
+.tflow::before{
+  content:"";position:absolute;top:6px;left:10%;right:10%;
+  height:2px;background:var(--accent-deep);opacity:.28;
+}
+.tstep{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:12px;
+  position:relative;
+}
+.dot{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--bg);
+  box-shadow:0 0 0 1.5px var(--accent-deep);
+}
+.tstep:last-child .dot{background:var(--accent-deep)}
+.tlabel{font-size:14.5px;font-weight:700}
+@media (max-width:639px){
+  .tlabel{font-size:12.5px}
+  .dot{width:12px;height:12px}
+}
+
+/* ---------- testimonials ---------- */
+.qwrap{
+  overflow:hidden;margin-bottom:24px;
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+}
+.qtrack{
+  display:flex;gap:22px;width:max-content;
+  animation:qscroll 36s linear infinite;
+}
+.qtrack:hover{animation-play-state:paused}
+@keyframes qscroll{to{transform:translateX(calc(-50% - 11px))}}
+.quote{flex:0 0 330px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:14px}
+@media (max-width:639px){.quote{flex-basis:260px}}
+.quote .mark{font-size:34px;line-height:1;color:var(--accent-deep);font-family:Georgia,serif;font-weight:700}
+.quote p{margin:0;font-size:15px;line-height:1.85}
+.quote footer{
+  font-size:13px;color:var(--ink-2);letter-spacing:.02em;
+  border-top:1px solid var(--glass-border);padding-top:12px;
+  display:flex;flex-direction:column;gap:2px;
+  margin-top:auto;
+}
+.quote footer b{color:var(--ink);font-size:14px}
+.qtags{color:var(--accent-deep)!important;font-family:var(--mono);font-weight:600;letter-spacing:.03em}
+
+/* ---------- FAQ ---------- */
+.faq{margin-bottom:12px;overflow:hidden}
+.faq summary{
+  cursor:pointer;list-style:none;padding:18px 22px;
+  font-weight:700;font-size:15.5px;display:flex;align-items:center;gap:12px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{
+  content:"＋";color:var(--accent-deep);font-weight:400;font-size:17px;flex-shrink:0;
+  transition:transform .2s ease;
+}
+.faq[open] summary::before{transform:rotate(45deg)}
+.faq summary:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:22px}
+.faq-a{padding:0 22px 20px 51px;font-size:14.5px;color:var(--ink-2)}
+.faq-a p{margin:0 0 10px}
+.faq-a p:last-child{margin-bottom:0}
+.faq-a ul{margin:0 0 10px;padding-left:20px}
+.faq-a li{margin:3px 0}
+
+/* ---------- about + contact ---------- */
+.about{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.about-photo{
+  width:210px;align-self:stretch;object-fit:cover;object-position:50% 20%;
+  border-radius:24px;border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);flex-shrink:0;
+}
+@media (max-width:640px){.about-photo{width:100%;height:260px;align-self:auto}}
+.about-right{flex:1;min-width:280px;display:flex;flex-direction:column;gap:13px;justify-content:center}
+.about-right p{margin:0;text-wrap:pretty;font-size:14.5px;color:var(--ink-2)}
+.about-intro{font-size:16.5px!important;font-weight:800;color:var(--ink)!important}
+.about-punch{font-size:15.5px!important;font-weight:800;color:var(--accent-deep)!important;line-height:1.7}
+.tools{display:flex;gap:14px;margin-top:10px}
+.tool i,.tool svg{width:48px;height:48px;border-radius:12px;display:block}
+.tool i{
+  display:flex;align-items:center;justify-content:center;
+  font-style:normal;font-weight:700;font-size:19px;
+}
+
+div.contact.wrap{margin:64px auto 0;padding:0 24px 96px}
+.contact-inner{text-align:center;padding:56px 32px 48px}
+.contact h2{font-size:clamp(18px,5.5vw,40px);white-space:nowrap}
+.contact .lede{margin:0 auto 30px}
+.contact-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+footer{font-family:var(--mono);font-size:clamp(9px,2.6vw,12px);color:var(--ink-2);letter-spacing:.14em;white-space:nowrap}
+
+/* ---------- responsive: tablet 640–1023 / mobile <640 ---------- */
+@media (max-width:1023px){
+  header.wrap{padding:72px 24px 0}
+  section.wrap{padding:56px 24px 8px}
+  div.contact.wrap{margin:56px auto 0}
+}
+@media (max-width:639px){
+  .wrap{padding:0 18px}
+  header.wrap{padding:52px 18px 0}
+  section.wrap{padding:44px 18px 8px}
+  div.contact.wrap{margin:44px auto 0;padding:0 18px 72px}
+  .name{font-size:28px}
+  .role-en{margin-bottom:30px}
+  .hero-sub{font-size:15px}
+  h1{font-size:31px}
+  .hero-cta{gap:10px;margin-bottom:36px}
+  .hero-cta .btn{padding:10px 22px;font-size:14px}
+  .grid{
+    display:flex;overflow-x:auto;gap:14px;padding:2px 2px 10px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .grid::-webkit-scrollbar{display:none}
+  .grid .card{flex:0 0 86%;scroll-snap-align:center}
+  .lede{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    font-size:14px;
+  }
+  .vgrid,.svc{
+    display:flex;overflow-x:auto;gap:14px;padding:2px 2px 10px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .vgrid::-webkit-scrollbar,.svc::-webkit-scrollbar{display:none}
+  .vgrid .vcard{flex:0 0 86%;scroll-snap-align:center}
+  .svc .svc-item{flex:0 0 72%;scroll-snap-align:center}
+  .card h3{font-size:14.5px}
+  .quote{padding:22px 20px 18px}
+  .faq summary{padding:15px 18px;font-size:14.5px}
+  .faq-a{padding:0 18px 16px 47px;font-size:14px}
+  .tools{gap:10px;flex-wrap:wrap}
+  .tool i,.tool svg{width:44px;height:44px}
+  .contact-inner{padding:40px 20px 36px}
+  .contact-links .btn{width:100%;text-align:center}
+  footer .brand{height:64px}
+}
+
+/*THUMBS*/
+</style>
+
+<div class="orbs" aria-hidden="true">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div>
+</div>
+
+<header class="wrap">
+  <p class="name">Cinzia</p>
+  <p class="role-en">Video Editor &amp; Visual Designer</p>
+  <h1>讓內容<span class="hl">更清楚</span>，也更容易<span class="hl">被看完</span></h1>
+  <p class="hero-sub">專注 YouTube 長影音、知識型內容與個人品牌影片。從內容節奏到視覺定調，把複雜資訊剪得清楚、有質感。</p>
+  <div class="hero-cta">
+    <a class="btn btn-solid" href="#works">看作品</a>
+    <a class="btn btn-ghost" href="mailto:cinzzstudio@gmail.com">合作洽詢</a>
+  </div>
+
+  <div class="stats glass">
+    <div class="stat"><b>200+</b><span>完成影片</span></div>
+    <div class="stat"><b>10+</b><span>合作品牌</span></div>
+    <div class="stat"><b>100 萬+</b><span>累積觀看</span></div>
+    <div class="stat"><b>4+</b><span>長期合作</span></div>
+  </div>
+</header>
+
+<section id="works" class="wrap">
+  <p class="tc">CHAPTER 01 <b>／ CLIENT WORK</b></p>
+  <h2>產業姸究室</h2>
+  <p class="lede">17.2 萬訂閱財經頻道，週更節目穩定交付。</p>
+  <div class="grid">
+    <a class="card glass" href="https://www.youtube.com/watch?v=YBOceW5jJCU" target="_blank" rel="noopener">
+      <div class="thumb t-YBOceW5jJCU"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>1.2 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">最新一集</span></div><h3>AI 開始進入現實！鴻海藏了一台「印鈔怪獸」，2,150 億訂單一路賺到 2027</h3></div>
+    </a>
+    <a class="card glass" href="https://www.youtube.com/watch?v=gZSTFo9f-ig" target="_blank" rel="noopener">
+      <div class="thumb t-gZSTFo9f-ig"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>2.7 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">2026.07.14</span></div><h3>量產還沒開始！全球首條 CoPoS 試產線點火，台積電設備股迎來重新定價？</h3></div>
+    </a>
+    <a class="card glass" href="https://www.youtube.com/watch?v=P4K1ZKEHKqQ" target="_blank" rel="noopener">
+      <div class="thumb t-P4K1ZKEHKqQ"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>2.9 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">2026.07.07</span></div><h3>三星、美光拚 HBM4！真正吃到百億商機的竟是台灣這家公司？</h3></div>
+    </a>
+  </div>
+  <p class="more-link">完整節目共 111 集 → <a href="https://youtube.com/playlist?list=PLvVpG1YXHdUHD_HMd-k5fLRR0KCbYbaiG" target="_blank" rel="noopener">產業姸究室播放清單</a></p>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 02 <b>／ MORE CLIENTS</b></p>
+  <h2>更多客戶案例</h2>
+  <p class="lede">衛教到動畫不同題材不同節奏。</p>
+  <div class="grid">
+    <a class="card glass" href="https://youtu.be/r0Gzcb2ERgQ" target="_blank" rel="noopener">
+      <div class="thumb t-r0Gzcb2ERgQ"></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">育群營養師・衛教</span></div><h3>減重免挨餓！6 招平衡荷爾蒙，啟動你的天然瘦瘦針</h3></div>
+    </a>
+    <a class="card glass" href="https://youtu.be/GGzkWEsHqzM" target="_blank" rel="noopener">
+      <div class="thumb t-GGzkWEsHqzM"></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">育群營養師・衛教</span></div><h3>傷口怎樣吃才不留疤？營養師教你「傷口修復 4 階段」關鍵飲食</h3></div>
+    </a>
+    <a class="card glass" href="https://youtu.be/Czdh0Tq3ZBU" target="_blank" rel="noopener">
+      <div class="thumb t-Czdh0Tq3ZBU"></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">小狐狸區塊鏈・動畫</span></div><h3>用紫微斗數算比特幣！AI 預言前半年幾乎全中，下半年這兩個月要小心</h3></div>
+    </a>
+  </div>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 03 <b>／ SHORT-FORM</b></p>
+  <h2>短影音精選</h2>
+  <p class="lede">三秒 hook、重點字卡，各種題材都能剪。</p>
+  <div class="vgrid">
+    <a class="card glass vcard" href="https://www.instagram.com/reel/DVvQPK8E1SZ/" target="_blank" rel="noopener">
+      <div class="vthumb t-ig_review"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>44 萬</span><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>5.4 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">影評・自營帳號</span></div><h3>禁忌女孩新 Nanno 選角解析｜cinzia.view</h3></div>
+    </a>
+    <a class="card glass vcard" href="https://www.instagram.com/reel/DRwmIIAk488/" target="_blank" rel="noopener">
+      <div class="vthumb t-ig_fitness"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>19.6 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">健身・IG REELS</span></div><h3>骨盆前傾自我檢測｜格里歐運動空間</h3></div>
+    </a>
+    <a class="card glass vcard" href="https://www.instagram.com/reel/DXEnPsziTcB/" target="_blank" rel="noopener">
+      <div class="vthumb t-ig_unbox"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>3.3 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">開箱・IG REELS</span></div><h3>美妝用品開箱｜一修妝髮魔手</h3></div>
+    </a>
+    <a class="card glass vcard" href="https://www.tiktok.com/@linlinkaiyun/video/7498656603009256711" target="_blank" rel="noopener">
+      <div class="vthumb t-tiktok_bazi"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>2.7 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">命理・TIKTOK</span></div><h3>紫微斗數命宮解析｜林霖開運</h3></div>
+    </a>
+    <a class="card glass vcard" href="https://www.instagram.com/reel/DVi9mVIj97s/" target="_blank" rel="noopener">
+      <div class="vthumb t-ig_makeup"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>2.4 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">美妝・IG REELS</span></div><h3>給化妝師的亞裔妝技巧｜一修教練</h3></div>
+    </a>
+  </div>
+  <p class="shorts-note">另可做指定風格短影音，歡迎來信索取。</p>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 04 <b>／ MY CHANNEL</b></p>
+  <h2>自媒體頻道 @heycinzia</h2>
+  <p class="lede">85 部影片從企劃到縮圖，全部自己來。</p>
+  <div class="grid">
+    <a class="card glass" href="https://youtu.be/FTnS9QwWSh0" target="_blank" rel="noopener">
+      <div class="thumb t-FTnS9QwWSh0"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>3.4 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">經驗分享</span></div><h3>洗學歷？從北科到交大碩，非純血的我看到的真實差異</h3></div>
+    </a>
+    <a class="card glass" href="https://youtu.be/ITHZJm5Xguk" target="_blank" rel="noopener">
+      <div class="thumb t-ITHZJm5Xguk"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>5.5 萬</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">生活教學</span></div><h3>90 分鐘搞定一週！小冰箱「無痛備餐系統」</h3></div>
+    </a>
+    <a class="card glass" href="https://youtu.be/l8XJUAY6CUU" target="_blank" rel="noopener">
+      <div class="thumb t-l8XJUAY6CUU"><div class="eyerow"><span class="eyeview"><svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>9,000+</span></div></div>
+      <div class="card-body"><div class="tagrow"><span class="card-tag">接案經驗</span></div><h3>沒有作品集也能接案嗎？我第一次靠剪片賺錢的完整過程</h3></div>
+    </a>
+  </div>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 05 <b>／ SERVICES</b></p>
+  <h2>我能幫你做什麼</h2>
+  <p class="lede">單支到長期週更，交付清楚、時程穩定。</p>
+  <div class="svc">
+    <div class="svc-item">
+      <svg class="sic" viewBox="0 0 24 24" style="color:#5E8A6E" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="13" height="6" rx="1.5"/><path d="M16 7h4v4h-8v3"/><rect x="11" y="16" width="2.4" height="5" rx="1"/></svg>
+      <p><em style="color:#5E8A6E">重新定調視覺，</em>重整字體、配色與動態，建立品牌辨識。</p>
+    </div>
+    <div class="svc-item">
+      <svg class="sic" viewBox="0 0 24 24" style="color:#C0713F" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+      <p><em style="color:#C0713F">優化內容節奏，</em>刪去冗長、突出重點，讓影片更容易看完。</p>
+    </div>
+    <div class="svc-item">
+      <svg class="sic" viewBox="0 0 24 24" style="color:#8A7561" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"/><line x1="7" y1="17" x2="7" y2="11"/><line x1="12" y1="17" x2="12" y2="5"/><line x1="17" y1="17" x2="17" y2="9"/></svg>
+      <p><em style="color:#8A7561">視覺化複雜資訊，</em>用圖像與動畫，讓專業內容更直觀。</p>
+    </div>
+    <div class="svc-item">
+      <svg class="sic" viewBox="0 0 24 24" style="color:#4C5A52" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/><polyline points="2 17 12 22 22 17"/></svg>
+      <p><em style="color:#4C5A52">建立長期風格，</em>制定可延續的系統，讓每支影片維持一致。</p>
+    </div>
+  </div>
+  <div class="tflow">
+    <div class="tstep"><span class="dot"></span><span class="tlabel">需求</span></div>
+    <div class="tstep"><span class="dot"></span><span class="tlabel">素材</span></div>
+    <div class="tstep"><span class="dot"></span><span class="tlabel">製作</span></div>
+    <div class="tstep"><span class="dot"></span><span class="tlabel">修改</span></div>
+    <div class="tstep"><span class="dot"></span><span class="tlabel">交付</span></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 06 <b>／ TESTIMONIALS</b></p>
+  <h2>客戶怎麼說</h2>
+  <p class="lede">來自合作客戶的回饋。</p>
+  <div class="qwrap">
+  <div class="qtrack">
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>欸這版節奏順超多，重點全都有抓到！</p>
+      <footer><b class="qtags">#長影音 #節奏優化</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>畫面整個升級，終於有屬於我們的風格了。</p>
+      <footer><b class="qtags">#風格定調 #字卡視覺</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>跟你講一次就懂，完全不用來回解釋，太貼心了🥹</p>
+      <footer><b class="qtags">#短影音 #溝通順暢</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>每次都準時交、品質又穩，丟給你我就不用操心了。</p>
+      <footer><b class="qtags">#長期合作 #準時交付</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>這麼硬的主題居然被你剪得這麼好懂，怎麼做到的？</p>
+      <footer><b class="qtags">#知識型 #資訊視覺化</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>欸這版節奏順超多，重點全都有抓到！</p>
+      <footer><b class="qtags">#長影音 #節奏優化</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>畫面整個升級，終於有屬於我們的風格了。</p>
+      <footer><b class="qtags">#風格定調 #字卡視覺</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>跟你講一次就懂，完全不用來回解釋，太貼心了🥹</p>
+      <footer><b class="qtags">#短影音 #溝通順暢</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>每次都準時交、品質又穩，丟給你我就不用操心了。</p>
+      <footer><b class="qtags">#長期合作 #準時交付</b></footer>
+    </div>
+    <div class="quote glass">
+      <span class="mark">“</span>
+      <p>這麼硬的主題居然被你剪得這麼好懂，怎麼做到的？</p>
+      <footer><b class="qtags">#知識型 #資訊視覺化</b></footer>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 07 <b>／ FAQ</b></p>
+  <h2>常見問題</h2>
+  <p class="lede">合作前你可能想知道的事。</p>
+  <details class="faq glass">
+    <summary>你主要提供哪些剪輯服務？</summary>
+    <div class="faq-a"><p>YouTube 長影音、知識型內容、訪談、個人品牌影片與社群短影音。可加入字幕、字卡、動態圖像、音效配樂與基本調色。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>一支影片需要多久完成？</summary>
+    <div class="faq-a"><p>一般案件約 5 個工作天，從素材與需求確認完整後起算。長片、大量動畫或急件可提前討論，另行評估。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>可以修改幾次？</summary>
+    <div class="faq-a"><p>每個專案包含 2 次修改，以確認過的腳本與剪輯方向為準。大幅更換腳本或追加原報價外的需求，會另估費用與交期。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>素材要怎麼提供？</summary>
+    <div class="faq-a"><p>Google Drive、Dropbox 等雲端連結皆可。建議依影片、音訊、圖片分類整理，並開啟下載權限。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>開始剪輯前需要提供什麼？</summary>
+    <div class="faq-a"><p>腳本或逐字稿、影片用途與發布平台、參考風格、品牌素材（Logo、字體、色）、指定或禁用的元素、預計上線日。資料越完整，來回修改越少。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>沒有準備完整素材也可以剪輯嗎？</summary>
+    <div class="faq-a"><p>可以，至少提供腳本、主要影片素材與風格方向即可。需要代找補充素材時，依數量與授權方式另行估價。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>剪輯費用如何計算？</summary>
+    <div class="faq-a"><p>依成品長度、素材量、剪輯複雜度、字卡與動畫需求、交件時間綜合評估。確認需求後提供正式報價與交件日期。</p></div>
+  </details>
+  <details class="faq glass">
+    <summary>合作流程是什麼？</summary>
+    <div class="faq-a"><p>確認需求與素材 → 報價 → 開始剪輯 → 初版 → 集中回饋修改 → 交付。修改意見建議一次整理，並附上時間碼。</p></div>
+  </details>
+</section>
+
+<section class="wrap">
+  <p class="tc">CHAPTER 08 <b>／ ABOUT</b></p>
+  <h2>關於我</h2>
+  <div class="about">
+    <img class="about-photo" src="data:image/jpeg;base64,__PHOTO__" alt="Cinzia 的照片">
+    <div class="about-right">
+      <p class="about-intro">我是 Cinzia，影片剪輯師與視覺設計師。</p>
+      <p>累積 8 年以上影音剪輯經驗，擅長整理知識型內容、重新建立影片視覺，並將複雜資訊轉化成更容易理解的畫面。</p>
+      <p>我不只完成單支影片，也會從字體、配色、字幕與動態元素出發，建立能持續延伸的頻道風格。</p>
+      <p class="about-punch">不堆疊效果。只留下真正需要的畫面。</p>
+      <div class="tools">
+      <span class="tool" title="Premiere Pro" aria-label="Premiere Pro"><i style="background:#00005B;color:#9999FF">Pr</i></span>
+      <span class="tool" title="After Effects" aria-label="After Effects"><i style="background:#00005B;color:#9999FF">Ae</i></span>
+      <span class="tool" title="Photoshop" aria-label="Photoshop"><i style="background:#001E36;color:#31A8FF">Ps</i></span>
+      <span class="tool" title="Illustrator" aria-label="Illustrator"><i style="background:#330000;color:#FF9A00">Ai</i></span>
+      <span class="tool" title="Claude" aria-label="Claude"><svg viewBox="-5 -5 34 34" style="background:#D97757;fill:#fff" aria-hidden="true"><path d="__CLAUDE__"/></svg></span>
+      <span class="tool" title="Midjourney" aria-label="Midjourney"><i style="background:#16161A;color:#fff">MJ</i></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact wrap">
+  <div class="contact-inner glass">
+    <p class="tc" style="justify-content:center">CHAPTER 09 <b>／ CONTACT</b></p>
+    <h2>有想法，就一起把它做好。</h2>
+    <p class="lede">告訴我你的頻道與需求，兩個工作天內回覆。</p>
+    <div class="contact-links">
+      <a class="btn btn-solid btn-mail" href="mailto:cinzzstudio@gmail.com" aria-label="來信洽詢 cinzzstudio@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7.5 12 13.5l8.5-6"/></svg>cinzzstudio@gmail.com</a>
+    </div>
+    <footer>CINZZ STUDIO ｜ CINZIA — VIDEO EDITOR</footer>
+  </div>
+</div>
