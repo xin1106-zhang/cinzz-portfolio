@@ -1,7 +1,10 @@
 # Cinzz Studio｜Cinzia 剪輯作品集
 
-線上網址(Artifact):https://claude.ai/code/artifact/824072ad-5249-4967-920e-620bed275b6e
-(私人連結,分享請從頁面右上的 share 選單開啟存取權)
+**🌐 公開網址(GitHub Pages,拿這個給案主):**
+https://xin1106-zhang.github.io/cinzz-portfolio/
+
+- GitHub repo:https://github.com/xin1106-zhang/cinzz-portfolio
+- Artifact 備援:https://claude.ai/code/artifact/824072ad-5249-4967-920e-620bed275b6e(私人)
 
 ## 檔案結構
 
@@ -17,9 +20,9 @@
 ## 更新流程
 
 1. 修改 `portfolio.html`
-2. 執行:`python build/build_page.py`
-3. 把產出的 `portfolio_final.html` 重新發布到同一個 Artifact 網址
-   (請 Claude 代發,或未來自行架站直接上傳這個檔案)
+2. 執行:`python build/build_page.py`(同時產出 `portfolio_final.html` 給 Artifact、`index.html` 給網站)
+3. 推上 GitHub 即自動更新網站:`git add -A && git commit -m "update" && git push`
+4. (可選)請 Claude 把 `portfolio_final.html` 同步發布到 Artifact
 
 ## 新增影片卡片時
 
